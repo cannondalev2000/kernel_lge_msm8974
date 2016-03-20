@@ -1,3 +1,4 @@
+CFLAGS_KERNEL := -fno-strict-aliasing
 
 # LGE Board Selection
 obj-$(CONFIG_MACH_MSM8974_G2) += 8974-g2/

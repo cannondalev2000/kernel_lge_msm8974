@@ -2,6 +2,8 @@
 # Makefile for the Linux network device drivers.
 #
 
+CFLAGS_KERNEL := -fno-strict-aliasing -fno-fast-math -fno-tree-vectorize
+
 #
 # Networking Core Drivers
 #

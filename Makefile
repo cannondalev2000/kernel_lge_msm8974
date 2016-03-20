@@ -244,10 +244,20 @@ CONFIG_SHELL := $(shell if [ -x "$$BASH" ]; then echo $$BASH; \
 	  else if [ -x /bin/bash ]; then echo /bin/bash; \
 	  else echo sh; fi ; fi)
 
+GRAPHITE = -fgraphite -fgraphite-identity -floop-flatten -floop-parallelize-all -ftree-loop-linear -floop-interchange -floop-strip-mine -floop-block
+LOOPNEST = -floop-nest-optimize
+LTO = -flto -fuse-linker-plugin 
+O3 = -O3 -ffast-math -ftree-vectorize
+STRICT = -fstrict-aliasing -Wno-error=strict-aliasing -Wstrict-aliasing=3
+NOWARN = -fomit-frame-pointer -Wno-array-bounds -Wno-strict-overflow $(call cc-disable-warning,maybe-uninitialized,)
+PIPE = -pipe
+MISC = -funsafe-math-optimizations
+
+
 HOSTCC       = gcc
 HOSTCXX      = g++
-HOSTCFLAGS   = -Wall -Wmissing-prototypes -Wstrict-prototypes -O2 -fomit-frame-pointer
-HOSTCXXFLAGS = -O2
+HOSTCFLAGS   = -Wall -Wmissing-prototypes -Wstrict-prototypes $(O3) $(LTO) $(GRAPHITE) $(STRICT) $(PIPE) $(MISC) $(NOWARN)
+HOSTCXXFLAGS = $(O3) $(LTO) $(GRAPHITE) $(STRICT) $(PIPE) $(MISC) $(NOWARN)
 
 # Decide whether to build built-in, modular, or both.
 # Normally, just do built-in.
@@ -365,7 +375,7 @@ LINUXINCLUDE    := -I$(srctree)/arch/$(hdr-arch)/include \
 
 KBUILD_CPPFLAGS := -D__KERNEL__
 
-KBUILD_CFLAGS   := -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs \
+KBUILD_CFLAGS   := -Wall -Wstrict-prototypes -Wno-trigraphs \
 		   -fno-strict-aliasing -fno-common \
 		   -Werror-implicit-function-declaration \
 		   -Wno-format-security \
@@ -559,11 +569,7 @@ endif # $(dot-config)
 # Defaults to vmlinux, but the arch makefile usually adds further targets
 all: vmlinux
 
-ifdef CONFIG_CC_OPTIMIZE_FOR_SIZE
-KBUILD_CFLAGS	+= -Os $(call cc-disable-warning,maybe-uninitialized,)
-else
-KBUILD_CFLAGS	+= -O2
-endif
+KBUILD_CFLAGS	+= $(O3) $(LTO) $(GRAPHITE) $(STRICT) $(PIPE) $(MISC) $(NOWARN)
 
 include $(srctree)/arch/$(SRCARCH)/Makefile
 

@@ -5,6 +5,8 @@
 # Rewritten to use lists instead of if-statements.
 #
 
+CFLAGS_KERNEL := -fno-strict-aliasing -fno-fast-math -fno-tree-vectorize
+
 obj-y	:= nonet.o
 
 obj-$(CONFIG_NET)		:= socket.o core/

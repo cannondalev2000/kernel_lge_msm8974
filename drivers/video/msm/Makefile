@@ -1,3 +1,5 @@
+CFLAGS_KERNEL := -fno-strict-aliasing
+
 ifeq ($(CONFIG_FB_MSM_MDSS_COMMON),y)
 obj-y += mdss/
 else
