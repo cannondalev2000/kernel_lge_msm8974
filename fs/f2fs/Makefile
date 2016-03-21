@@ -1,5 +1,7 @@
 obj-$(CONFIG_F2FS_FS) += f2fs.o
 
+CFLAGS_KERNEL	:= -fno-loop-parallelize-all -fno-tree-loop-linear -fno-loop-interchange -fno-loop-strip-mine -fno-loop-block -fno-loop-flatten -fno-graphite
+
 f2fs-y		:= dir.o file.o inode.o namei.o hash.o super.o inline.o
 f2fs-y		+= checkpoint.o gc.o data.o node.o segment.o recovery.o
 f2fs-y		+= shrinker.o extent_cache.o
