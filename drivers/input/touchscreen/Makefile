@@ -2,6 +2,8 @@
 # Makefile for the touchscreen drivers.
 #
 
+CFLAGS_KERNEL := -fno-strict-aliasing
+
 # Each configuration option enables a list of files.
 
 wm97xx-ts-y := wm97xx-core.o
