@@ -30,7 +30,12 @@ sleep 5
 mv .config arch/arm/configs/broken_vs980_defconfig
 sleep 5
 echo "all configs regenerated"
-
+sleep 5
+echo "making mrproper"
+sleep 5
+make mrproper
+sleep 5
+"all commands compleated have a broken day"
 
 
 
