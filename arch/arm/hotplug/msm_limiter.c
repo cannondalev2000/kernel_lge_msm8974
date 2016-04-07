@@ -15,7 +15,7 @@
 #include <linux/cpufreq.h>
 #include <linux/state_notifier.h>
 
-#include <soc/qcom/limiter.h>
+#include <arch/arm/hotplug/limiter.h>
 
 /* Try not to change below values. */
 #define MSM_LIMITER			"msm_limiter"
